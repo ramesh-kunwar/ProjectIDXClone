@@ -1,8 +1,10 @@
 import React from "react";
 import { useCreateProject } from "../hooks/apis/mutations/useCreateProject";
 import { Button, Layout } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const CreateProject = () => {
+  const navigate = useNavigate();
   const { Header, Content, Footer } = Layout;
   const layoutStyle = {
     borderRadius: 8,
@@ -31,8 +33,9 @@ const CreateProject = () => {
     // call the createProjectMutation function here
     console.log("Going to trigger the api");
     try {
-      await createProjectMutation();
+      const response = await createProjectMutation();
       console.log("Now we should redirect to the project page");
+      navigate(`/project/${response.data}`);
     } catch (error) {
       console.error(error);
     }
